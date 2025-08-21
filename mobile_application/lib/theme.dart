@@ -37,11 +37,18 @@ ThemeData primaryTheme = ThemeData(
     error : Colors.yellow,
     onError : AppColors.textColor,
   ), 
+  
   appBarTheme: AppBarTheme(
     backgroundColor: AppColors.secondaryAccentColor!, 
     foregroundColor: AppColors.textColor, 
-    centerTitle: true
+    centerTitle: true, 
+    titleTextStyle : TextStyle(
+      color : AppColors.titleColor, 
+      fontSize : 26, 
+      fontWeight : FontWeight.w700
+    )
   ),
+  
   textTheme : TextTheme(
     bodyMedium : TextStyle(
       color : AppColors.textColor, 
