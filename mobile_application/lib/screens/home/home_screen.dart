@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:mobile_application/main.dart" ; 
+import "package:mobile_application/shared/styled_text.dart" ; 
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,12 +9,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar : AppBar(
-        title : Text("Home"),
-        centerTitle : true, 
-        backgroundColor : Colors.grey
+        title : StyledHeading("Home"),
       ), 
       bottomNavigationBar : Container(
-        color : Colors.grey, 
         height : 60,
         padding : EdgeInsets.symmetric(vertical : 12, horizontal : 20), 
         child : Row(
@@ -22,7 +20,7 @@ class HomeScreen extends StatelessWidget {
               icon : Icon(
                 Icons.home, 
                 size : 25, 
-                color : Colors.blueGrey), 
+              ), 
               onPressed : () {
                 // Navigator.push(context, MaterialPageRoute(builder :(context) => MyApp())) ; 
               }
@@ -31,7 +29,6 @@ class HomeScreen extends StatelessWidget {
         )
       ), 
       body : Container(
-        color : Colors.white
       )
     );
   }
