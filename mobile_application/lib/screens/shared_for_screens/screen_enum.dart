@@ -1,6 +1,1 @@
-enum AppScreensEnum {
-  home, 
-  menu, 
-  planning, 
-  account
-}
+enum AppScreensEnum { home, menu, planning, account, camera }

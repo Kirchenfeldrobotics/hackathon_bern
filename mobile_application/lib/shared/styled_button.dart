@@ -17,7 +17,7 @@ class StyledButton extends StatelessWidget {
       style : FilledButton.styleFrom(
         backgroundColor : AppColors.primaryColor, 
         foregroundColor : AppColors.textColor, 
-        overlayColor : AppColors.secondaryAccentColor!, 
+        overlayColor : AppColors.secondaryAccentColor, 
         shape : RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40))), 
         minimumSize : const Size(80, 80)
       ), 
