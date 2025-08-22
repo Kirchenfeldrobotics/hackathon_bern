@@ -46,4 +46,8 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>
+
+<!-- Kamera Berechtigungen für Appel -->
+<key>NSCameraUsageDescription</key>
+<string>Diese App benötigt Zugriff auf die Kamera, um Fotos aufzunehmen.</string>
 </plist>
