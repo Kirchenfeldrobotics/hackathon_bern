@@ -31,7 +31,7 @@ class NavigationBarButtonWrapper extends StatelessWidget {
       margin : EdgeInsetsGeometry.symmetric(vertical : 2), 
       decoration : BoxDecoration(
       borderRadius : BorderRadius.circular(30), 
-      color : AppColors.primaryColor
+      color : Color.fromRGBO(210, 70, 50, 0.2)
       ), 
       child: child 
     ) ; 
@@ -55,8 +55,9 @@ class NavagtionBarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+        color : Color.fromRGBO(15, 0, 70, 1), 
         highlightColor : Colors.transparent, 
-        splashColor : Colors.transparent, 
+        splashColor : Colors.transparent,         
         icon : icon, 
         onPressed : actionFunc
     ) ; 

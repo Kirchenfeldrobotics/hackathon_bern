@@ -14,11 +14,12 @@ class _NoTransitionAnimation extends PageTransitionsBuilder  {
     return child ;  
   }
 }
+// Color.fromRGBO(210, 70, 50, 1)
 
 class AppColors {
-  static const primaryColor = Colors.red ; 
-  static const secondaryColor = Colors.white ; 
-  static final secondaryAccentColor = Colors.red[100] ; 
+  static const primaryColor = Color.fromRGBO(120, 60, 110, 1) ; 
+  static const secondaryColor = Color.fromRGBO(220, 230, 240, 1) ; 
+  static const secondaryAccentColor = Color.fromRGBO(180, 190, 230, 1) ; 
   static const textColor = Colors.black ;
   static const titleColor = Colors.black ;  
 }
