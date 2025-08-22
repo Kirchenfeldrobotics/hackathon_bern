@@ -1,13 +1,11 @@
 from flask import Flask, request, jsonify
 from google.cloud import vision
-import io
 import os
 
 app = Flask(__name__)
 
-# set credentials (download service account JSON from GCP)
+# Google Vision credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service-account.json"
-
 client = vision.ImageAnnotatorClient()
 
 @app.route("/analyze", methods=["POST"])
@@ -17,12 +15,12 @@ def analyze_image():
 
     file = request.files["image"]
     content = file.read()
-
     image = vision.Image(content=content)
+
     response = client.label_detection(image=image)
     labels = response.label_annotations
 
-    results = [{"description": label.description, "score": label.score} for label in labels]
+    results = [{"description": l.description, "score": l.score} for l in labels]
 
     return jsonify({"labels": results})
 
