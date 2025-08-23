@@ -1,17 +1,17 @@
 import 'package:camera/camera.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-
+ 
 class CameraService {
   CameraController? controller;
   List<CameraDescription>? cameras;
   bool isInitialized = false;
-
+ 
   Future<void> initialize() async {
     try {
       cameras = await availableCameras();
       if (cameras!.isEmpty) throw Exception('No camera detected');
-
+ 
       controller = CameraController(cameras![0], ResolutionPreset.medium);
       await controller!.initialize();
       isInitialized = true;
@@ -20,10 +20,10 @@ class CameraService {
       rethrow;
     }
   }
-
+ 
   Future<String?> takePicture() async {
     if (!isInitialized) return null;
-
+ 
     try {
       final image = await controller!.takePicture();
       final directory = await getApplicationDocumentsDirectory();
@@ -36,7 +36,7 @@ class CameraService {
       return null;
     }
   }
-
+ 
   void dispose() {
     controller?.dispose();
   }

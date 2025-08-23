@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert'; 
 
-const String apiIp = "192.168.137.24:5000"  ; 
+const String apiIp = "127.0.0.1:5000"  ; 
 
 class RpiApiService {
   static Future<List<dynamic>> getMealsByCategory(String categoryName) async {

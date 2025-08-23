@@ -14,9 +14,18 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Padding(
+      
+  padding: const EdgeInsets.only(
+    left: 10.0,
+    right: 10.0,
+    top: 5.0,
+    bottom: 5.0,
+  ),
+      child:Card(
       color : AppColors.secondaryAccentColor!, 
-      shape : RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))), 
+      shape : RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))), 
+      
       child : Row(
         spacing : 14, 
         children : [
@@ -24,7 +33,8 @@ class ProductCard extends StatelessWidget {
             Icons.apple_outlined,
             color : Colors.black,  
             size : 40
-          ), 
+            
+          ),
           Column(
             crossAxisAlignment : CrossAxisAlignment.start, 
             children : [
@@ -37,13 +47,19 @@ class ProductCard extends StatelessWidget {
                     Icons.folder_outlined, 
                     color : Colors.black
                   ), 
-                  StyledText("3"), 
-                  Text("Ds wird no cleaner, vertru")
+                  StyledText("1"), 
+                  Text("Nahrungsmittel")
+                
+                  
                 ]
+                
               )
             ]
           )
         ]
+        
+      )
+      
       )
     ) ;
 
