@@ -25,7 +25,6 @@ Alle erscheinen menüs zum suchfilter werden als Dictionary returned mit folgend
 Am Ende des Files befinden sich verschiedene Tests von ChatGPT um die funtkion zu testen.
 Diese können aktiviert werden wenn sie aus Kommentar herausgenommen werden"""
 
-
 """Filter für Flutter"""
 # Essen über nur ein Inhalt filtern
 def get_meals_by_ingredient(ingredient):
@@ -33,7 +32,7 @@ def get_meals_by_ingredient(ingredient):
     try:
         response = requests.get(url)
         data = response.json()
-        if data["meals"]:
+        if data.get("meals"):
             return set(meal["idMeal"] for meal in data["meals"])
     except Exception as e:
         print(f"Error fetching meals for ingredient '{ingredient}': {e}")
@@ -147,41 +146,3 @@ def fetch_and_transform_meals_by_category(category_name):
             transformed_meals.append(clean_meal)
 
     return transformed_meals
-
-"""Tests"""
-"""#von Chatgpt kein plan ob funktioniert
-if __name__ == "__main__":
-    # Zutaten-Test
-    ingredients = ["chicken", "garlic", "onion"]
-    matching_meals = find_common_meals(ingredients)
-
-    for meal in matching_meals:
-        print(f"- {meal['name']} ({meal['area']})")
-        print(f"  Category: {meal['category']}")
-        print(f"  Instructions: {meal['instructions'][:100]}...")
-        print(f"  Image: {meal['image']}")
-        print()
-
-    # Test category transformation
-    print("🔍 Testing meal fetch and transformation for category: Vegetarian\n")
-    category = "Vegetarian"
-    meals = fetch_and_transform_meals_by_category(category)
-
-    if not meals:
-        print("❌ No meals found or transformation failed.")
-    else:
-        print(f"✅ Found {len(meals)} meals in category '{category}'\n")
-        for i, meal in enumerate(meals, start=1):
-            print(f"🍽️ Meal {i}: {meal['name']}")
-            print(f"📸 Image: {meal['image']}")
-            print(f"🧂 Ingredients: {len(meal['ingredients'])}")
-            print(f"📖 Instructions (preview): {meal['instructions'][:150]}...\n")
-
-    # Test Suche nach Name
-    print("🔍 Suche nach Meal-Name: Chicken Handi\n")
-    meals_by_name = search_meal_by_name("Chicken Handi")
-    for meal in meals_by_name:
-        print(f"🍛 {meal['name']} ({meal['area']})")
-        print(f"📸 {meal['image']}")
-        print(f"🧂 Zutaten: {[i['ingredient'] for i in meal['ingredients']]}")
-        print()"""
