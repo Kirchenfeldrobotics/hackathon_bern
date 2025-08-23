@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert'; // Required for json.decode
+import 'dart:convert'; 
 
-const String apiIp = "Rasberry pi IP:Port"  ; 
+const String apiIp = "192.168.137.24:5000"  ; 
 
 class RpiApiService {
   static Future<List<dynamic>> getMealsByCategory(String categoryName) async {
@@ -35,6 +35,38 @@ class RpiApiService {
     }
   }
 
-  static Future<>
+  static Future<dynamic> getMealDetailById(String menuId) async {
+    final url = Uri.parse("$apiIp/meals/category/$menuId") ; 
+
+    try {
+      final response = await http.get(url) ; 
+      if (response.statusCode == 200) {
+        return json.decode(response.body) ; 
+      } else {
+        return "" ; 
+      }
+    } catch (e) {
+      return "" ; 
+    }
+  }
+
+  static void postIngredientsAsImage(String imageFilePath) async {
+    final url = Uri.parse("$apiIp/analyze") ; 
+
+    try {
+      final request = http.MultipartRequest("POST", url) ; 
+
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          "image", 
+          imageFilePath,  
+        )
+      ) ;
+
+      final response = await request.send() ; // successful upload in the future 
+
+    } catch (e) {}
+  }
+
 }
 

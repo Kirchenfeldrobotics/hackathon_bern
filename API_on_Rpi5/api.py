@@ -10,7 +10,7 @@ from filter_function import (
 
 app = Flask(__name__)
 
-KEY_PATH = "C:\\Users\\nick\\Programmieren\\bern_hackt\\hackathon_bern\\API_on_Rpi5\\service-account.json" 
+KEY_PATH = "/hackathon25_bern/hackathon_bern/API_on_Rpi5/service-account.json" 
 
 @app.route('/analyze', methods=['POST'])
 def analyze_image():
