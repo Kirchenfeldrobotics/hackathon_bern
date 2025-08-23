@@ -3,7 +3,7 @@ from google.cloud import vision
 from google.oauth2 import service_account
 
 # analyse image bytes and return labels above threshold
-def detect_labels_from_bytes(image_bytes, key_path, threshold=0.5):
+def detect_labels_from_bytes(image_bytes, key_path="/home/user1/Desktop/API_on_Rpi5/service-account.json", threshold=0.5):
     """
     Erkennt Labels in einem Bild (als Bytes) mit der Google Cloud Vision API
     und gibt Labels mit Score >= threshold zurück.
