@@ -36,3 +36,4 @@ if __name__ == "__main__":
     image_path = "C:\\Users\\nick\\Programmieren\\bern_hackt\\hackathon_bern\\API_on_Rpi5\\pictures\\spagetti.jpg"
     key_path = "C:\\Users\\nick\\Programmieren\\bern_hackt\\hackathon_bern\\API_on_Rpi5\\service-account.json"
     detect_labels(image_path, key_path)
+
