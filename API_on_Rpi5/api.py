@@ -16,8 +16,7 @@ from filter_function import (
 # initializing Flask application
 app = Flask(__name__)
 
-# Path to where the Key is stored
-KEY_PATH = "C:\\Users\\nick\\Programmieren\\bern_hackt\\hackathon_bern\\API_on_Rpi5\\service-account.json"
+KEY_PATH = "/hackathon25_bern/hackathon_bern/API_on_Rpi5/service-account.json" 
 
 """ picture analysisation """
 # analysing
