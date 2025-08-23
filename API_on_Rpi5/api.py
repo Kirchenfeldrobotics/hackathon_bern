@@ -12,6 +12,7 @@ from filter_function import (
     find_common_meals,
     get_meal_picture_by_id
 )
+from blacklisted_lables import get_blacklisted_labels
 
 # initializing Flask application
 app = Flask(__name__)
@@ -30,6 +31,10 @@ def analyze_image():
 
     try:
         labels = detect_labels_from_bytes(image_bytes, KEY_PATH)
+        blacklisted_labels = get_blacklisted_labels()
+        for i, label in enumerate(labels) : 
+            if label in blacklisted_labels : 
+                del labels[i]
         return jsonify({"labels": labels})
     except Exception as e:
         return jsonify({"error": str(e)}), 500

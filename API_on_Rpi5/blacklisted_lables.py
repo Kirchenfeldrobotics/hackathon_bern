@@ -1,0 +1,40 @@
+# Some common labels, which are not helpful, have to be blacklisted
+blacklisted_labels = [
+    "Ingredient", 
+    "Food", 
+    "Packaging and labeling", 
+    "Box", 
+    "Breakfast", 
+    "Dairy product", 
+    "Staple food", 
+    "Produce", 
+    "Recipe", 
+    "Finger food", 
+    "Convenience food", 
+    "Advertising", 
+    "Bottle", 
+    "Liquid", 
+    "Logo", 
+    "Plastic bottle", 
+    "Label", 
+    "Bottle cap", 
+    "Foil", 
+    "Aluminium foil", 
+    "Vegetarian cuisine", 
+    "Fast food", 
+    "Junk food", 
+    "Comfort food", 
+    "Fruit", 
+    "Natural foods",
+    "Red", 
+    "Superfood", 
+    "Seedless fruit", 
+    "Dessert", 
+    "Beaking", 
+    "Dishware", 
+    "Plastic", 
+    "Mixture"
+]
+
+def get_blacklisted_labels() : 
+    return blacklisted_labels

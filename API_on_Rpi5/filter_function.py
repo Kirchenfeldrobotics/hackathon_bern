@@ -1,4 +1,5 @@
 import requests
+from blacklisted_lables.py import get_blacklisted_labels 
 
 BASE_URL = "https://www.themealdb.com/api/json/v1/1"
 """Dieses File enthält alle Kommunikation mit der themealdb.com api. 
@@ -146,3 +147,4 @@ def fetch_and_transform_meals_by_category(category_name):
             transformed_meals.append(clean_meal)
 
     return transformed_meals
+

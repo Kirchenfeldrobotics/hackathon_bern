@@ -17,7 +17,7 @@ def detect_labels_from_bytes(image_bytes, key_path="/home/user1/Desktop/API_on_R
     client = vision.ImageAnnotatorClient(credentials=credentials)
 
     image = vision.Image(content=image_bytes)
-    response = client.label_detection(image=image)
+    response = client.label_detection(image=image) 
 
     if response.error.message:
         raise Exception(f"Fehler von API: {response.error.message}")
