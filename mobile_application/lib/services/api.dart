@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
  
 class ApiService {
-  final String baseUrl = "http://127.0.0.1:5000";
+  final String baseUrl = "http://10.20.12.167:5000";
   Future<String?> uploadImage(String imagePath) async {
     try {
       var request = http.MultipartRequest(
