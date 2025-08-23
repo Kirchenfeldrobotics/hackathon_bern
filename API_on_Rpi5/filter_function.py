@@ -1,6 +1,30 @@
 import requests
 
 BASE_URL = "https://www.themealdb.com/api/json/v1/1"
+"""Dieses File enthält alle Kommunikation mit der themealdb.com api. 
+Es enthält verschiedene Funktionen welche, wenn aufgerufen ,die Meals in der Datenbank filtern und schauen welche es zu den Filtern gibt.
+Die empfohlenen Meals werden dann in einem sauberen Datenformat an den Call zurückgegeben. Dabei gibt es folgende Filter:
+1.Essen über Ingredient
+2.anhand mehrer Ingredients also vrohanderer Lebensmittel
+3.Namen des Menüs
+4.kategorie, z.b. vegi, alle kategorien auf: https://www.themealdb.com/api/json/v1/1/categories.php
+
+Flutter kann folgende Werte anhand der ID Nummer einzeln beziehen:
+1.Details
+2.Bild
+
+Alle erscheinen menüs zum suchfilter werden als Dictionary returned mit folgendem inhalt:
+        "id": meal.get("idMeal"),
+        "name": meal.get("strMeal"),
+        "category": meal.get("strCategory"),
+        "instructions": meal.get("strInstructions"),
+        "image": meal.get("strMealThumb"),
+        "tags": meal.get("strTags"),
+        "ingredients": ingredients
+
+Am Ende des Files befinden sich verschiedene Tests von ChatGPT um die funtkion zu testen.
+Diese können aktiviert werden wenn sie aus Kommentar herausgenommen werden"""
+
 
 """Filter für Flutter"""
 # Essen über nur ein Inhalt filtern
@@ -15,7 +39,7 @@ def get_meals_by_ingredient(ingredient):
         print(f"Error fetching meals for ingredient '{ingredient}': {e}")
     return set()
 
-# filtern von menüs das zu allen ingeredients passt
+# filtern von menüs anhand der vorhandenen ingredients (erkennt von z.b. KI)
 def find_common_meals(ingredients):
     print(f"Searching for meals with: {', '.join(ingredients)}")
     meal_sets = []
@@ -29,38 +53,32 @@ def find_common_meals(ingredients):
 
     common_ids = set.intersection(*meal_sets)
     print(f"\n✅ Found {len(common_ids)} meals that match all ingredients.\n")
-    return [get_meal_details(meal_id) for meal_id in common_ids]
+
+    # transformierte Meals zurückgeben
+    return [
+        transform_meal_details(get_meal_details(meal_id))
+        for meal_id in common_ids
+        if get_meal_details(meal_id)
+    ]
 
 # beim (menü) namen suchen
 def search_meal_by_name(name):
-    """Search for a meal by its name."""
     url = f"{BASE_URL}/search.php?s={name}"
     try:
         response = requests.get(url)
         if response.status_code == 200:
-            return response.json().get("meals", []) or []
+            raw_meals = response.json().get("meals", []) or []
+            return [
+                transform_meal_details(meal)
+                for meal in raw_meals
+                if meal
+            ]
     except Exception as e:
         print(f"Error searching for meal '{name}': {e}")
     return []
 
-# filtern und transformieren über kategorie
-def fetch_and_transform_meals_by_category(category_name):
-    """Fetch all meals in a category and transform them into clean dictionaries."""
-    raw_meals = get_meals_by_category(category_name)
-    transformed_meals = []
-
-    for meal in raw_meals:
-        meal_id = meal.get("idMeal")
-        full_details = get_meal_details(meal_id)
-        clean_meal = transform_meal_details(full_details)
-        if clean_meal:
-            transformed_meals.append(clean_meal)
-
-    return transformed_meals
-
 # kategorie
 def get_meals_by_category(category_name):
-    """Fetch meals by category name."""
     url = f"{BASE_URL}/filter.php?c={category_name}"
     try:
         response = requests.get(url)
@@ -70,12 +88,9 @@ def get_meals_by_category(category_name):
         print(f"Error fetching category '{category_name}': {e}")
     return []
 
-
-
 """Daten für Flutter"""
-# filtern über ID
+# Details über meal
 def get_meal_details(meal_id):
-    """Fetch full details of a meal by its ID."""
     url = f"{BASE_URL}/lookup.php?i={meal_id}"
     try:
         response = requests.get(url)
@@ -88,13 +103,10 @@ def get_meal_details(meal_id):
 
 # bild vom essen
 def get_meal_picture_by_id(meal_id):
-    """Return the image URL of a meal given its ID."""
     details = get_meal_details(meal_id)
     if details:
         return details.get("strMealThumb")
     return None
-
-
 
 """Transformation der Suchergebnisse in Dictionary"""
 # umwandeln in Dictionary
@@ -122,19 +134,32 @@ def transform_meal_details(meal):
         "ingredients": ingredients
     }
 
+# filtern und transformieren über kategorie
+def fetch_and_transform_meals_by_category(category_name):
+    raw_meals = get_meals_by_category(category_name)
+    transformed_meals = []
+
+    for meal in raw_meals:
+        meal_id = meal.get("idMeal")
+        full_details = get_meal_details(meal_id)
+        clean_meal = transform_meal_details(full_details)
+        if clean_meal:
+            transformed_meals.append(clean_meal)
+
+    return transformed_meals
 
 """Tests"""
-#von Chatgpt kein plan ob funktioniert
+"""#von Chatgpt kein plan ob funktioniert
 if __name__ == "__main__":
-    # Test multi-ingredient filter
+    # Zutaten-Test
     ingredients = ["chicken", "garlic", "onion"]
     matching_meals = find_common_meals(ingredients)
 
     for meal in matching_meals:
-        print(f"- {meal['strMeal']} ({meal['strArea']})")
-        print(f"  Category: {meal['strCategory']}")
-        print(f"  Instructions: {meal['strInstructions'][:100]}...")
-        print(f"  Image: {meal['strMealThumb']}")
+        print(f"- {meal['name']} ({meal['area']})")
+        print(f"  Category: {meal['category']}")
+        print(f"  Instructions: {meal['instructions'][:100]}...")
+        print(f"  Image: {meal['image']}")
         print()
 
     # Test category transformation
@@ -151,3 +176,12 @@ if __name__ == "__main__":
             print(f"📸 Image: {meal['image']}")
             print(f"🧂 Ingredients: {len(meal['ingredients'])}")
             print(f"📖 Instructions (preview): {meal['instructions'][:150]}...\n")
+
+    # Test Suche nach Name
+    print("🔍 Suche nach Meal-Name: Chicken Handi\n")
+    meals_by_name = search_meal_by_name("Chicken Handi")
+    for meal in meals_by_name:
+        print(f"🍛 {meal['name']} ({meal['area']})")
+        print(f"📸 {meal['image']}")
+        print(f"🧂 Zutaten: {[i['ingredient'] for i in meal['ingredients']]}")
+        print()"""
