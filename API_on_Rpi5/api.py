@@ -10,14 +10,29 @@ from filter_function import (
 
 app = Flask(__name__)
 
+KEY_PATH = "C:\\Users\\nick\\Programmieren\\bern_hackt\\hackathon_bern\\API_on_Rpi5\\service-account.json" 
+
+@app.route('/analyze', methods=['POST'])
+def analyze_image():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image uploaded"}), 400
+
+    image_file = request.files['image']
+    image_bytes = image_file.read()
+
+    try:
+        labels = detect_labels_from_bytes(image_bytes, KEY_PATH)
+        return jsonify({"labels": labels})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/meals/category/<category_name>", methods=["GET"])
 def get_meals_by_category(category_name):
     meals = fetch_and_transform_meals_by_category(category_name)
     return jsonify(meals)
 
-@app.route("/meals/search", methods=["GET"])
-def search_meal():
-    name = request.args.get("name")
+@app.route("/meals/search/<name>", methods=["GET"])
+def search_meal(name):
     raw_meals = search_meal_by_name(name)
     transformed = [transform_meal_details(meal) for meal in raw_meals if meal]
     return jsonify(transformed)
@@ -46,21 +61,6 @@ if __name__ == "__main__":
 app = Flask(__name__)
 
 # Set your service account key path here
-KEY_PATH = "C:\\Users\\nick\\Programmieren\\bern_hackt\\hackathon_bern\\API_on_Rpi5\\service-account.json"
-
-@app.route('/analyze', methods=['POST'])
-def analyze_image():
-    if 'image' not in request.files:
-        return jsonify({"error": "No image uploaded"}), 400
-
-    image_file = request.files['image']
-    image_bytes = image_file.read()
-
-    try:
-        labels = detect_labels_from_bytes(image_bytes, KEY_PATH)
-        return jsonify({"labels": labels})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
