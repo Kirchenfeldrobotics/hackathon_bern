@@ -66,4 +66,4 @@ def meal_image(meal_id):
 
 # run the app
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)  # ✅ allows access from other devices
