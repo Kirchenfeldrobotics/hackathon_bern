@@ -93,21 +93,6 @@ def meals_by_multiple_ingredients():
     meals = find_common_meals(ingredients)
     return jsonify(meals or [])
 
-"""
-#get every meal??
-@app.route("/meals/all", methods=["GET"])
-def get_all_meals():
-    # Optional: hardcoded categories or fetch dynamically
-    categories = ["Vegetarian", "Chicken", "Seafood", "Dessert"]
-    all_meals = []
-
-    for category in categories:
-        meals = fetch_and_transform_meals_by_category(category)
-        all_meals.extend(meals)
-
-    return jsonify(all_meals)
-"""
-
 # run the app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
