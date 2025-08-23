@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:mobile_application/data_models/menu.dart";
 import "package:mobile_application/main.dart" ;
+import "package:mobile_application/provider/providers.dart";
 import "package:mobile_application/screens/shared_for_screens/screen_enum.dart";
 import "package:mobile_application/shared/styled_text.dart" ;
 import "package:mobile_application/theme.dart" ;
@@ -13,11 +16,13 @@ import "package:mobile_application/screens/shared_for_screens/bottom_navigation_
 
 
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends ConsumerWidget {
   const MenuScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<Menu> myMenues = ref.watch(menuNotifierProvider) ;     
+    
     return Scaffold(
       appBar : AppBar(
         title : Text("Menu Vorschläge"),
