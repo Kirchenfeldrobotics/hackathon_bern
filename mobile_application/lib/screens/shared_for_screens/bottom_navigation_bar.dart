@@ -12,55 +12,10 @@ import "package:mobile_application/data_models/product.dart";
 import "package:uuid/uuid.dart";
 import "package:mobile_application/screens/menu_screen/menu_screen.dart";
 import "package:mobile_application/screens/camera_screen/camera_screen.dart";
+import "package:mobile_application/screens/shared_for_screens/navigation_buttons.dart" ; 
 
 // do NOT use outside of this file!
-class NavigationBarButtonWrapper extends StatelessWidget {
-  const NavigationBarButtonWrapper({
-    required this.isChoosen,
-    required this.child,
-    super.key,
-  });
 
-  final bool isChoosen;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    if (isChoosen) {
-      return Container(
-        margin: EdgeInsetsGeometry.symmetric(vertical: 2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: AppColors.primaryColor,
-        ),
-        child: child,
-      );
-    } else {
-      return child;
-    }
-  }
-}
-
-class NavagtionBarButton extends StatelessWidget {
-  const NavagtionBarButton({
-    required this.icon,
-    required this.actionFunc,
-    super.key,
-  });
-
-  final Icon icon;
-  final Function() actionFunc;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      highlightColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      icon: icon,
-      onPressed: actionFunc,
-    );
-  }
-}
 
 class ScreenBottomNavigationBar extends StatelessWidget {
   const ScreenBottomNavigationBar({required this.currentScreen, super.key});
@@ -81,10 +36,10 @@ class ScreenBottomNavigationBar extends StatelessWidget {
         children: [
           NavigationBarButtonWrapper(
             isChoosen: currentScreen == AppScreensEnum.home ? true : false,
-            child: NavagtionBarButton(
+            child: NavigationBarButton(
               icon: Icon(Icons.home),
               actionFunc: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (ctx) => HomeScreen()),
                 );
@@ -94,10 +49,10 @@ class ScreenBottomNavigationBar extends StatelessWidget {
           SizedBox(width: 10),
           NavigationBarButtonWrapper(
             isChoosen: currentScreen == AppScreensEnum.menu ? true : false,
-            child: NavagtionBarButton(
+            child: NavigationBarButton(
               icon: Icon(Icons.menu_book),
               actionFunc: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (ctx) => MenuScreen()),
                 );
@@ -105,10 +60,10 @@ class ScreenBottomNavigationBar extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10),
-          NavagtionBarButton(
+          NavigationBarButton(
             icon: Icon(Icons.add, weight: 1000),
             actionFunc: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (ctx) => CameraScreen()),
               );
@@ -118,10 +73,10 @@ class ScreenBottomNavigationBar extends StatelessWidget {
           SizedBox(width: 10),
           NavigationBarButtonWrapper(
             isChoosen: currentScreen == AppScreensEnum.planning ? true : false,
-            child: NavagtionBarButton(
+            child: NavigationBarButton(
               icon: Icon(Icons.calendar_month),
               actionFunc: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => PlanningScreen()),
                 );
@@ -131,10 +86,10 @@ class ScreenBottomNavigationBar extends StatelessWidget {
           SizedBox(width: 10),
           NavigationBarButtonWrapper(
             isChoosen: currentScreen == AppScreensEnum.account ? true : false,
-            child: NavagtionBarButton(
+            child: NavigationBarButton(
               icon: Icon(Icons.account_circle),
               actionFunc: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => AccountScreen()),
                 );

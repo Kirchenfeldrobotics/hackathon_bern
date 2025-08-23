@@ -42,12 +42,13 @@ ThemeData primaryTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: AppColors.secondaryAccentColor!, 
     foregroundColor: AppColors.textColor, 
-    centerTitle: true, 
+    centerTitle: false, 
     titleTextStyle : TextStyle(
       color : AppColors.titleColor, 
       fontSize : 26, 
       fontWeight : FontWeight.w700
-    )
+    ), 
+    titleSpacing: 25
   ),
   
   textTheme : TextTheme(
@@ -69,6 +70,12 @@ ThemeData primaryTheme = ThemeData(
       letterSpacing : 1, 
     ), 
   ), 
+
+  expansionTileTheme: ExpansionTileThemeData(
+    iconColor : Color.fromRGBO(200, 80, 70, 1), 
+    collapsedIconColor : Color.fromRGBO(20, 0, 50, 1), 
+
+  ),
   // all relevant widgets
   pageTransitionsTheme : PageTransitionsTheme(
     builders : {
