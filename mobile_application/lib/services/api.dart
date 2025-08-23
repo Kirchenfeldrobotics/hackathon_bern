@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
  
 class ApiService {
-  final String baseUrl = "http://10.20.12.167:5000";
+  final String baseUrl = "http://147.87.228.59:5000";
   Future<String?> uploadImage(String imagePath) async {
     try {
       var request = http.MultipartRequest(
@@ -11,7 +11,6 @@ class ApiService {
       ); 
       request.files.add(await http.MultipartFile.fromPath(
         'image',
-
         imagePath,
 
       ));

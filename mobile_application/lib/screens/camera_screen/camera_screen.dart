@@ -128,15 +128,12 @@ Future<void> _takePicture() async {
         Positioned(top:30, 
         right:30,
         child: Center(
-          child: GestureDetector(
-            onTap: null,
-            child: Container(
-              width: 20,
-              height: 10,
-              
-        child: const Icon(Icons.keyboard_return, size: 40, color: Colors.black),
-        ),
-        ),
+          child: IconButton(
+            icon : Icon(Icons.keyboard_return), 
+            onPressed: () {
+              Navigator.pop(context) ;
+            },
+          ) 
         ),
         ),
         Positioned(

@@ -63,7 +63,7 @@ class ScreenBottomNavigationBar extends StatelessWidget {
           NavigationBarButton(
             icon: Icon(Icons.add, weight: 1000),
             actionFunc: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (ctx) => CameraScreen()),
               );
